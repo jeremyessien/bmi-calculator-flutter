@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
-
 import 'constants.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'reusable_card.dart';
 import 'container_prop.dart';
+import 'results.dart';
+import 'round_icon_button.dart';
 
 enum Gender { male, female }
 
@@ -207,15 +208,26 @@ class _InputPageState extends State<InputPage> {
               ),
             ],
           )),
-          Container(
-            margin: EdgeInsets.only(top: 10.0),
-            width: double.infinity,
-            height: kBottomContainerHeight,
-            color: kBottomContainerColor,
-            child: Center(
-              child: Text(
-                "Calculate your BMI",
-                style: TextStyle(color: Colors.white, fontSize: 25.0),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ResultPage(),
+                ),
+              );
+            },
+            child: Container(
+              margin: EdgeInsets.only(top: 10.0),
+              padding: EdgeInsets.only(bottom: 20.0),
+              width: double.infinity,
+              height: kBottomContainerHeight,
+              color: kBottomContainerColor,
+              child: Center(
+                child: Text(
+                  "Calculate your BMI",
+                  style: kLargeButton,
+                ),
               ),
             ),
           ),
@@ -225,28 +237,3 @@ class _InputPageState extends State<InputPage> {
   }
 }
 
-class RoundIconButton extends StatelessWidget {
-  RoundIconButton({@required this.icon, @required this.onPressed});
-
-  final IconData icon;
-  final Function onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      child: Icon(
-        icon,
-        color: Colors.white,
-      ),
-      onPressed: onPressed,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      fillColor: Colors.grey[700],
-      constraints: BoxConstraints.tightFor(
-        width: 56.0,
-        height: 56.0,
-      ),
-    );
-  }
-}
