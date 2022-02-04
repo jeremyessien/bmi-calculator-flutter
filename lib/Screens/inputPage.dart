@@ -1,12 +1,13 @@
+import 'package:bmi_calculator/components/bottom_button.dart';
 import 'package:flutter/cupertino.dart';
-import 'constants.dart';
+import '../constants.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'reusable_card.dart';
-import 'container_prop.dart';
-import 'results.dart';
-import 'round_icon_button.dart';
-
+import 'package:bmi_calculator/components/reusable_card.dart';
+import 'package:bmi_calculator/components/container_prop.dart';
+import 'package:bmi_calculator/components/round_icon_button.dart';
+import 'package:bmi_calculator/Screens/results.dart';
+import 'package:bmi_calculator/calculator.dart';
 enum Gender { male, female }
 
 class InputPage extends StatefulWidget {
@@ -208,29 +209,22 @@ class _InputPageState extends State<InputPage> {
               ),
             ],
           )),
-          GestureDetector(
+          BottomButton(
+            buttonTitle: "Calculate",
             onTap: () {
+              CalcBrain calc = CalcBrain(height: height, weight: weight);
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ResultPage(),
+                  builder: (context) => ResultPage(
+                    bmiResult:calc.calBMI(),
+                    resultText: calc.result(),
+                    interpretation: calc.bmiInterpretation(),
+                  ),
                 ),
               );
             },
-            child: Container(
-              margin: EdgeInsets.only(top: 10.0),
-              padding: EdgeInsets.only(bottom: 20.0),
-              width: double.infinity,
-              height: kBottomContainerHeight,
-              color: kBottomContainerColor,
-              child: Center(
-                child: Text(
-                  "Calculate your BMI",
-                  style: kLargeButton,
-                ),
-              ),
             ),
-          ),
         ],
       ),
     );
